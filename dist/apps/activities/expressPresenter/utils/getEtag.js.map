@@ -1,0 +1,1 @@
+{"version":3,"file":"getEtag.js","sourceRoot":"","sources":["../../../../../src/apps/activities/expressPresenter/utils/getEtag.ts"],"names":[],"mappings":";;AAAA,mBAAe,UAAC,UAA8B;IAC5C,IAAI,UAAU,KAAK,SAAS,EAAE;QAC5B,OAAO,SAAS,CAAC;KAClB;IACD,OAAO,UAAU,CAAC,OAAO,CAAC,IAAI,EAAE,EAAE,CAAC,CAAC;AACtC,CAAC,EAAC"}

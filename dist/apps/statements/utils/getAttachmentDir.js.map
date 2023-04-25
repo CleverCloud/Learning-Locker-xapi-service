@@ -1,0 +1,1 @@
+{"version":3,"file":"getAttachmentDir.js","sourceRoot":"","sources":["../../../../src/apps/statements/utils/getAttachmentDir.ts"],"names":[],"mappings":";;AAKA,mBAAe,UAAC,IAA8B;IAC5C,OAAA,IAAI,CAAC,SAAS,KAAK,SAAS;QAC1B,CAAC,CAAI,IAAI,CAAC,SAAS,SAAI,IAAI,CAAC,MAAM,iBAAc;QAChD,CAAC,CAAI,IAAI,CAAC,MAAM,iBAAc;AAFhC,CAEgC,EAAC"}

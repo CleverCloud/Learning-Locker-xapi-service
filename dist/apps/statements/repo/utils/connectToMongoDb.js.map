@@ -1,0 +1,1 @@
+{"version":3,"file":"connectToMongoDb.js","sourceRoot":"","sources":["../../../../../src/apps/statements/repo/utils/connectToMongoDb.ts"],"names":[],"mappings":";;;;;AAAA,2FAAqE;AACrE,iCAA8B;AAC9B,8DAAwC;AACxC,8DAAwC;AAExC,kBAAe,aAAI,CACjB,qBAAW,CAAC;IACV,MAAM,EAAE,gBAAM,CAAC,eAAe,CAAC,MAAM;IACrC,MAAM,kBAAA;IACN,GAAG,EAAE,gBAAM,CAAC,eAAe,CAAC,GAAG;CAChC,CAAC,CACH,CAAC"}
