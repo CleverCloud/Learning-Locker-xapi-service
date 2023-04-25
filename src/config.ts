@@ -10,7 +10,6 @@ import { defaultTo } from 'lodash';
 
 config();
 
-
 // apm = require('elastic-apm-node').start(process.env.ELASTIC_APM_SERVER_URL,process.env.ELASTIC_APM_SECRET_TOKEN);
 
 const DEFAULT_EXPRESS_PORT = 8080;
@@ -26,7 +25,7 @@ const expressPort = getNumberOption(
 const accessLogsDir = `${storageDir}/accessLogs`;
 const newRelicLogsDir = `${storageDir}/newrelic-agent.log`;
 const newRelicLicenseKey = getStringOption(process.env.NEW_RELIC_LICENSE_KEY, '');
-const defaultMongoUrl = 'mongodb://localhost:27017/learninglocker_v2';
+const defaultMongoUrl = process.env.MONGODB_ADDON_URI;
 const mongoUrl = getStringOption(process.env.MONGODB_ADDON_URI, defaultMongoUrl);
 
 const globalAwsRegion = process.env.GLOBAL_AWS_REGION;
@@ -62,7 +61,7 @@ export default {
   },
   mongoModelsRepo: {
     dbName: getStringOption(process.env.MONGODB_ADDON_DB, getDbFromUrl(mongoUrl)),
-    url: mongoUrl,
+    url: getStringOption(process.env.MONGODB_ADDON_URI),
   },
   redis: {
     prefix: getStringOption(process.env.REDIS_PREFIX, 'LEARNINGLOCKER'),
