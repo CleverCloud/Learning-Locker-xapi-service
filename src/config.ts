@@ -9,7 +9,7 @@ import { defaultTo } from 'lodash';
 
 config();
 
-const DEFAULT_EXPRESS_PORT = 8081;
+const DEFAULT_EXPRESS_PORT = 8080;
 const DEFAULT_TIMEOUT_MS = 55000; // 55 seconds.
 
 const storageDir = `${process.cwd()}/storage`;
@@ -23,7 +23,7 @@ const accessLogsDir = `${storageDir}/accessLogs`;
 const newRelicLogsDir = `${storageDir}/newrelic-agent.log`;
 const newRelicLicenseKey = getStringOption(process.env.NEW_RELIC_LICENSE_KEY, '');
 const defaultMongoUrl = 'mongodb://localhost:27017/learninglocker_v2';
-const mongoUrl = getStringOption(process.env.MONGO_URL, defaultMongoUrl);
+const mongoUrl = getStringOption(process.env.MONGODB_ADDON_URI, defaultMongoUrl);
 
 const globalAwsRegion = process.env.GLOBAL_AWS_REGION;
 const globalAwsIamAccessKeyId = process.env.GLOBAL_AWS_IAM_ACCESS_KEY_ID;
@@ -57,7 +57,7 @@ export default {
     storageDir: getStringOption(process.env.FS_LOCAL_STORAGE_DIR, storageDir),
   },
   mongoModelsRepo: {
-    dbName: getStringOption(process.env.MONGO_DB, getDbFromUrl(mongoUrl)),
+    dbName: getStringOption(process.env.MONGODB_ADDON_DB, getDbFromUrl(mongoUrl)),
     url: mongoUrl,
   },
   redis: {
@@ -81,17 +81,16 @@ export default {
   s3StorageRepo: {
     awsConfig: {
       apiVersion: '2006-03-01',
-      region: getStringOption(process.env.FS_S3_REGION, globalAwsRegion),
       tls: true,
       credentials: {
-        accessKeyId: getStringOption(process.env.FS_S3_ACCESS_KEY_ID, globalAwsIamAccessKeyId),
+        accessKeyId: getStringOption(process.env.CELLAR_ADDON_KEY_ID, globalAwsIamAccessKeyId),
         secretAccessKey: getStringOption(
-          process.env.FS_S3_SECRET_ACCESS_KEY,
+          process.env.CELLAR_ADDON_KEY_SECRET,
           globalAwsIamAccessKeySecret,
         ),
       },
     } as S3ClientConfig,
-    bucketName: getStringOption(process.env.FS_S3_BUCKET, 'xapi-service'),
+    bucketName: getStringOption(process.env.CELLAR_ADDON_BUCKET, 'xapi-storage'),
   },
   statementsService: {
     awaitUpdates: getBooleanOption(
