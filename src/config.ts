@@ -1,4 +1,5 @@
 import * as os from 'os';
+//import apm from 'elastic-apm-node/start';
 import { S3ClientConfig } from '@aws-sdk/client-s3';
 import { config } from 'dotenv';
 import getBooleanOption from 'jscommons/dist/config/getBooleanOption';
@@ -8,6 +9,9 @@ import getDbFromUrl from 'jscommons/dist/mongoRepo/utils/getDbFromUrl';
 import { defaultTo } from 'lodash';
 
 config();
+
+
+// apm = require('elastic-apm-node').start(process.env.ELASTIC_APM_SERVER_URL,process.env.ELASTIC_APM_SECRET_TOKEN);
 
 const DEFAULT_EXPRESS_PORT = 8080;
 const DEFAULT_TIMEOUT_MS = 55000; // 55 seconds.
