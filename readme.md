@@ -50,3 +50,72 @@ You can use the steps below to install and run the xAPI service.
 - Create a ".env" file using the ".env.example" file in this Github repository.
 - Pull the image from DockerHub `docker pull learninglocker/xapi-service:latest`.
 - Run the image in a container `docker run -d -p 8080:80 --env-file .env learninglocker/xapi-service:latest`.
+
+## Deploy on Clever Cloud
+
+![clever cloud logo](readme-assets/clever-cloud-logo.png)
+
+The code has been optimized to connect to dependencies deployed on Clever Cloud and process environment variables dynamically.
+
+To summarize : I replaced variables like `MONGO_URL` by `MONGODB_ADDON_URI`and so on. I also modified the `FS_BUCKET` variable and replaced it by `CELLAR_ADDON`.
+
+Basically, this service can be deployed and connected to the relevant dependencies.
+
+### UI ?
+
+To deploy the app, I advise you commit the `/dist` repository, but I'm not sure there is any client UI, so maybe it doesn't matter.
+
+### Steps to deploy on Clever Cloud
+
+Follow this procedure to deploy on Clever Cloud.
+
+#### 1. Declare the app
+
+Click on **Create > an application**, select your preferred deployment method (Git or GitHub intgartion). Select a **Node.js** runtime. An XS size is enough to deploy.
+
+#### 2. Add a Database
+
+When prompted with an addon selection, select a MongoDB addon. This way, the database can be started as you configure your app.
+
+I advise you better opt for the `XS Small Space` to get started, you'll get backups and logs, while `DEV` plans don't have that.
+
+#### 3. Add variables
+
+Click on **Expert** mode and add the following environment variables:
+
+```javascript
+CC_NODE_BUILD_TOOL="yarn"
+CC_WEBROOT="/dist"
+CELLAR_ADDON_BUCKET="xapi-storage"
+ENABLE_QUEUE_PRIORITY="true"
+EVENTS_REPO="redis"
+EXPRESS_PORT="8080"
+MODELS_REPO="mongo"
+QUEUE_NAMESPACE="DEV"
+REDIS_PREFIX="LEARNINGLOCKER"
+STORAGE_REPO="S3"
+```
+
+Don't forget to save changes.
+
+These are the variables this repository uses. If you use any other in-app variables, don't forget to add it **before** deploying, so the new parameters can be injected.
+
+If you forget, just wait until the deployment is over, add it, and restart the app.
+
+**Notes on environment variables on Clever Cloud**
+
+There is a lot you can do on Clever cloud with environment variables. You can find all the references [in the doc](https://www.clever-cloud.com/doc/reference/reference-environment-variables/).
+
+Do not push your code yet, you'll need to add 2 more addons.
+
+#### 4. Add a Redis and Cellar bucket to your app
+
+Click on **Create > an addon** and choose a Redis. A small plan is enough as well.
+
+Repeat this operation to create a **Cellar** addon. Then, go to the Cellar addon menu, and from **addon dashboard** create a new bucket.
+
+You are ready to connect it to your soo-to-be-deployed app! Go back to you app menu, and from **Environment variables**, add `CELLAR_ADDON_BUCKET` = `<name-of-your-bucket>`, and **update**.
+
+On your app menu go to **Information** and copy the git command to push your code.
+
+**Git tip**: Sometimes, when you clone from GitHub, the default branch is `main`. If `git push clever master` doesn't work, `git push clever main:master` will do the trick. This way, you can even deploy test apps from any branch on Clever Cloud without merging. This is a good way of checking the deployment process as you code.
